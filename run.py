@@ -4,7 +4,7 @@ import time
 Declared global veriable for battleships game.
 """
 board =[[]]
-board_size = 10
+board_size = 7
 num_of_ships = 5
 ship_placement = [[]]
 fire_left = 10
@@ -23,7 +23,7 @@ def create_board():
     global ship_placement
 
     random.seed(time.time())
-    rows, cols = (board_sizem board_size)
+    rows, cols = (board_size, board_size)
     board = []
     row = []
     for r in range(rows):
@@ -63,7 +63,32 @@ def validate_board(x1, x2, y1, y2):
                 board[r][c] = "O"
     return all_valid
 
-def place_ship():
+def place_ship(row, col, direction, length):
+    """
+    To place a ship on board with helper.
+    """
+    global board_size
+
+    x1, x2, y1, y2 = row, row + 1, col, col + 1
+    if direction == "left":
+        if col - length < 0:
+            return False
+        y1 = col - length + 1
+    elif direction == "right":
+        if col = length >= board_size:
+            return False
+        y2 = col + length
+    elif direction == "up":
+        if row - length < 0:
+            return False
+        x1 = row - length + 1
+    elif direction == "down":
+        if row + length >= board_size:
+            return False
+        x2 = row + length
+
+    return validate_board(x1, x2, y1, y2)
+
 
 
 
@@ -83,6 +108,10 @@ def gameover():
 
 
 def main():
+    """
+    Main function helps to runs the game loop.
+    """
+    create_board()
 
 
 
