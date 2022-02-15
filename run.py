@@ -207,9 +207,9 @@ def gameover():
     """
     If all ships sunk or runs out of fire then game over.
     """
-   global num_of_ships
-   global fire_left 
-   global game_over
+    global num_of_ships
+    global fire_left 
+    global game_over
 
     if num_of_ships == ship_sunk:
        print("Congrats you win!")
