@@ -189,7 +189,7 @@ def check_for_ship_sunk():
     This help to find ship and to check if it is completely sunk.
     """
     global ship_placement 
-    global board
+    global BOARD
     for position in ship_placement:
         x1 = position[0]
         x2 = position[1]
@@ -207,7 +207,10 @@ def gameover():
     """
     If all ships sunk or runs out of fire then game over.
     """
-   # global num_of_ships global fire_left global game_over
+   global num_of_ships
+   global fire_left 
+   global game_over
+
     if num_of_ships == ship_sunk:
        print("Congrats you win!")
        game_over = True
@@ -235,8 +238,8 @@ def main():
         print("")
         gameover()
 
-if __name__ == '__main__':
-    main()
+
+main()
 
 
 
