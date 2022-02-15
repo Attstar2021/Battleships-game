@@ -1,4 +1,4 @@
-import randon
+import random
 import time
 """
 Declared global veriable for battleships game.
@@ -33,7 +33,7 @@ def create_board():
     num_of_ships_placed = 0
     ship_placement = []
 
-    while num_of_ships_placed != num_of_ships
+    while num_of_ships_placed != num_of_ships:
         random_row = random.randint(0,rows - 1)
         random_col = random.randint(0, cols - 1)
         direction = random.choice(["left", "right", "up", "down"])
@@ -75,7 +75,7 @@ def place_ship(row, col, direction, length):
             return False
         y1 = col - length + 1
     elif direction == "right":
-        if col = length >= board_size:
+        if col + length >= board_size:
             return False
         y2 = col + length
     elif direction == "up":
@@ -117,17 +117,17 @@ def print_board():
     print(" ")
 
 
+#def fire_placement():
+    """
+
+    """
+
+#def shoot_a_fire():
+#def check_for_ship_sunk():
 
 
 
-def fire_placement():
-
-def shoot_a_fire():
-def check_for_ship_sunk():
-
-
-
-def gameover():
+#def gameover():
 
 
 def main():
