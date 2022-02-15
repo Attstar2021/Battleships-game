@@ -90,11 +90,34 @@ def place_ship(row, col, direction, length):
     return validate_board(x1, x2, y1, y2)
 
 
-
-
-
-
 def print_board():
+    """
+    Help to print the board with rows and columns.
+    """
+    global board
+    global alphabet
+    debug_mode = True
+
+    alphabet = alphabet[0: len(board) + 1]
+    for row in range(len(board)):
+        print(alphabet[row], end=") ")
+    for col in range(len(board[row])):
+        if board[row][col] == "O":
+            if debug_mode:
+                print("O", end=" ")
+            else:
+                print(".", end=" ")
+        else:
+            print(board[row][col], end=" ")
+        print("")
+
+    print(" ", end=" ")
+    for i in range(len(board[0])):
+        print(str(i), end=" ")
+    print(" ")
+
+
+
 
 
 def fire_placement():
