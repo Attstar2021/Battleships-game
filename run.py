@@ -35,13 +35,12 @@ def create_board():
     ship_placement = []
 
     while num_of_ships_placed != num_of_ships:
-        random_row = random.randint(0,rows - 1)
+        random_row = random.randint(0, rows - 1)
         random_col = random.randint(0, cols - 1)
         direction = random.choice(["left", "right", "up", "down"])
         ship_size = random.randint(1, 3)
         if place_ship(random_row, random_col, direction, ship_size):
             num_of_ships_placed += 1
-    
 
 
 def validate_board(x1, x2, y1, y2):
@@ -60,9 +59,10 @@ def validate_board(x1, x2, y1, y2):
     if all_valid:
         ship_placement.append([x1, x2, y1, y2])
         for r in range(x1, x2):
-            for c in range(y1,y2):
+            for c in range(y1, y2):
                 BOARD[r][c] = "O"
     return all_valid
+
 
 def place_ship(row, col, direction, length):
     """
@@ -132,22 +132,22 @@ def fire_placement():
         placement = input("Enter row (A-G) and column (0-6) such as A3:\n")
         placement = placement.upper()
         if len(placement) <= 0 or len(placement) > 2:
-            print("Error: Please enter letter (A-G) for row and (0-6) for column such as B2.\n")
+            print("Error: Please enter again.. for example B2.\n")
             continue
         row = placement[0]
         col = placement[1]
-        if not row.isalpha() or  col.isnumeric():
-            print("Error: Please enter letter (A-G) for row and (0-6) for column such as A3.\n")
+        if not row.isalpha() or col.isnumeric():
+            print("Error: Please enter again.. for example A3.\n")
             continue
         row = alphabet.find(row)
         if not (-1 < row < board_size):
-            print("Error: Please enter letter (A-G) for row and (0-6) for column such as B2.\n")
+            print("Error: Please enter again for example B2.\n")
             continue
         col = int(col)
         if not (-1 < col < board_size):
-            print("Error: Please enter letter (A-G) for row and (0-6) for column such as A3.\n")
+            print("Error: Please enter again for example C4.\n")
             continue
-        if BOARD[row][col]  == "#" or BOARD[row][col] == "X":
+        if BOARD[row][col] == "#" or BOARD[row][col] == "X":
             print("You have already shot a bullet here, please try somewhere else")
             continue
         if BOARD[row][col] == "." or BOARD[row][col] =="O":
@@ -156,7 +156,31 @@ def fire_placement():
     return row, col
 
 
-#def shoot_a_fire():
+def shoot_a_fire():
+    """
+    Update score board.
+    """
+    #global BOARD global ship_sunk global fire_left
+
+    row, col = fire_placement()
+    print("")
+    print("---------------------------")
+    if BOARD[row][col] == ".":
+        print("You missed")
+        BOARD[row][col] = "#"
+    elif BOARD[row][col] == "O":
+        print("BZ you hit a ship!", end=" ")
+        BOARD[row][col] = "X"
+        if check_for_ship_sunk(row, col):
+            print("Hurrah! A ship was completely sunk")
+            ship_sunk += 1
+        else:
+            print("Aship was shot")
+    fire_left - = 1
+
+
+
+
 #def check_for_ship_sunk():
 
 
