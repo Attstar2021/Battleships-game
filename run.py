@@ -3,7 +3,7 @@ import time
 """
 Declared global veriable for battleships game.
 """
-board =[[]]
+BOARD = [[]]
 board_size = 7
 num_of_ships = 5
 ship_placement = [[]]
@@ -12,24 +12,25 @@ ship_sunk = 0
 game_over = False
 alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
+
 def create_board():
     """
     to create a board and to place ships of 
     different sizes on gird.
     """
     global board_size
-    global board
+    global BOARD
     global num_of_ships
     global ship_placement
 
     random.seed(time.time())
     rows, cols = (board_size, board_size)
-    board = []
+    BOARD = []
     row = []
     for r in range(rows):
         row.append(".")
     for c in range(cols):
-        board.append(row)
+        BOARD.append(row)
     num_of_ships_placed = 0
     ship_placement = []
 
@@ -48,19 +49,19 @@ def validate_board(x1, x2, y1, y2):
     To place ship inside the grid.
     """
     global ship_placement
-    global board
+    global BOARD
 
     all_valid = True
     for r in range(x1, x2):
         for c in range(y1, y2):
-            if board[r][c] != ".":
+            if BOARD[r][c] != ".":
                 all_valid = False
                 break
     if all_valid:
         ship_placement.append([x1, x2, y1, y2])
         for r in range(x1, x2):
             for c in range(y1,y2):
-                board[r][c] = "O"
+                BOARD[r][c] = "O"
     return all_valid
 
 def place_ship(row, col, direction, length):
@@ -94,33 +95,66 @@ def print_board():
     """
     Help to print the board with rows and columns.
     """
-    global board
+    global BOARD
     global alphabet
     debug_mode = True
 
-    alphabet = alphabet[0: len(board) + 1]
-    for row in range(len(board)):
+    alphabet = alphabet[0: len(BOARD) + 1]
+    for row in range(len(BOARD)):
         print(alphabet[row], end=") ")
-    for col in range(len(board[row])):
-        if board[row][col] == "O":
+    for col in range(len(BOARD[row])):
+        if BOARD[row][col] == "O":
             if debug_mode:
                 print("O", end=" ")
             else:
                 print(".", end=" ")
         else:
-            print(board[row][col], end=" ")
+            print(BOARD[row][col], end=" ")
         print("")
 
     print(" ", end=" ")
-    for i in range(len(board[0])):
+    for i in range(len(BOARD[0])):
         print(str(i), end=" ")
     print(" ")
 
 
-#def fire_placement():
+def fire_placement():
     """
+    To get valid row and column to place a bullet shot.
+    """
+    global BOARD
+    global alphabet
 
-    """
+    is_valid_placement = False
+    row = -1 
+    col = -1
+    while is_valid_placement is False:
+        placement = input("Enter row (A-G) and column (0-6) such as A3:\n")
+        placement = placement.upper()
+        if len(placement) <= 0 or len(placement) > 2:
+            print("Error: Please enter letter (A-G) for row and (0-6) for column such as B2.\n")
+            continue
+        row = placement[0]
+        col = placement[1]
+        if not row.isalpha() or  col.isnumeric():
+            print("Error: Please enter letter (A-G) for row and (0-6) for column such as A3.\n")
+            continue
+        row = alphabet.find(row)
+        if not (-1 < row < board_size):
+            print("Error: Please enter letter (A-G) for row and (0-6) for column such as B2.\n")
+            continue
+        col = int(col)
+        if not (-1 < col < board_size):
+            print("Error: Please enter letter (A-G) for row and (0-6) for column such as A3.\n")
+            continue
+        if BOARD[row][col]  == "#" or BOARD[row][col] == "X":
+            print("You have already shot a bullet here, please try somewhere else")
+            continue
+        if BOARD[row][col] == "." or BOARD[row][col] =="O":
+            is_valid_placement = True
+
+    return row, col
+
 
 #def shoot_a_fire():
 #def check_for_ship_sunk():
