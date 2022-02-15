@@ -100,16 +100,17 @@ def print_board():
     debug_mode = True
 
     alphabet = alphabet[0: len(BOARD) + 1]
+
     for row in range(len(BOARD)):
         print(alphabet[row], end=") ")
-    for col in range(len(BOARD[row])):
-        if BOARD[row][col] == "O":
-            if debug_mode:
-                print("O", end=" ")
+        for col in range(len(BOARD[row])):
+            if BOARD[row][col] == "O":
+                if debug_mode:
+                    print("O", end=" ")
+                else:
+                    print(".", end=" ")
             else:
-                print(".", end=" ")
-        else:
-            print(BOARD[row][col], end=" ")
+                print(BOARD[row][col], end=" ")
         print("")
 
     print(" ", end=" ")
@@ -129,28 +130,28 @@ def fire_placement():
     row = -1 
     col = -1
     while is_valid_placement is False:
-        placement = input("Enter row (A-G) and column (0-6) such as A3:\n")
+        placement = input("Enter row (A-G) and column (0-6) such as A3:")
         placement = placement.upper()
         if len(placement) <= 0 or len(placement) > 2:
-            print("Error: Please enter again.. for example B2.\n")
+            print("Error: Please enter again.. for example B2.")
             continue
         row = placement[0]
         col = placement[1]
-        if not row.isalpha() or col.isnumeric():
-            print("Error: Please enter again.. for example A3.\n")
+        if not row.isalpha() or not col.isnumeric():
+            print("Error: Please enter again.. for example A3.")
             continue
         row = alphabet.find(row)
         if not (-1 < row < board_size):
-            print("Error: Please enter again for example B2.\n")
+            print("Error: Please enter again for example B2.")
             continue
         col = int(col)
         if not (-1 < col < board_size):
-            print("Error: Please enter again for example C4.\n")
+            print("Error: Please enter again for example C4.")
             continue
         if BOARD[row][col] == "#" or BOARD[row][col] == "X":
             print("You have already shot a bullet here, please try somewhere else")
             continue
-        if BOARD[row][col] == "." or BOARD[row][col] =="O":
+        if BOARD[row][col] == "." or BOARD[row][col] == "O":
             is_valid_placement = True
 
     return row, col
@@ -160,7 +161,9 @@ def shoot_a_fire():
     """
     Update score board.
     """
-    #global BOARD global ship_sunk global fire_left
+    global BOARD 
+    global ship_sunk 
+    global fire_left
 
     row, col = fire_placement()
     print("")
@@ -175,24 +178,65 @@ def shoot_a_fire():
             print("Hurrah! A ship was completely sunk")
             ship_sunk += 1
         else:
-            print("Aship was shot")
-    fire_left - = 1
+            print("A ship was shot")
+    fire_left -= 1
 
 
 
 
-#def check_for_ship_sunk():
+def check_for_ship_sunk():
+    """
+    This help to find ship and to check if it is completely sunk.
+    """
+    global ship_placement 
+    global board
+    for position in ship_placement:
+        x1 = position[0]
+        x2 = position[1]
+        y1 = position[2]
+        y2 = position[3]
+        if x1 <= row <= x2 and y1 <= col <= y2:
+            for r in range(x1, x2):
+                for c in range(y1, y2):
+                    if BOARD[r][c] != "X":
+                        return False
+    return True
 
 
-
-#def gameover():
+def gameover():
+    """
+    If all ships sunk or runs out of fire then game over.
+    """
+   # global num_of_ships global fire_left global game_over
+    if num_of_ships == ship_sunk:
+       print("Congrats you win!")
+       game_over = True
+    elif fire_left <= 0:
+        print("Oops! you ran out of bullets, try again next time")
+        game_over = True
 
 
 def main():
     """
     Main function helps to runs the game loop.
     """
+    global game_over
+    player_name = input("please enter your name:\n")
+    print("Welcome to Battleships game!")
+    print(f"{player_name} you have 10 bullets to take down ships, lets begin!")
     create_board()
+
+    while game_over is False:
+        print_board()
+        print("Number of ships remaining: " + str(num_of_ships - ship_sunk))
+        print("Number of bullets left: " + str(fire_left))
+        shoot_a_fire()
+        print("----------------------------")
+        print("")
+        gameover()
+
+if __name__ == '__main__':
+    main()
 
 
 
