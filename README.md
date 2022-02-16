@@ -62,12 +62,12 @@ the reason I plan to start a two-player game with a bigger board and spend time 
 
 ![Screenshot (28)](https://user-images.githubusercontent.com/91749477/154186183-880e4d87-aa9b-413a-b9de-2c962fe76cbf.png)
 
-Deployment
+### Deployment
 The site was deployed to Heroku
 
 
 
-Acknowledgements
+## Acknowledgements
 My mentor Rohit for continuous helpful feedback.
 Tutor and Student support at Code Institute for their support.
 code institute for the deployment terminal 
@@ -75,7 +75,3 @@ Wikipedia for the details of battleships game
 codeacadmy for global variable examples 
 Stockoverflow for giving idea about single player coding.
 https://learn.adafruit.com/ for tutorial on girds.
-
-
-
-validation
