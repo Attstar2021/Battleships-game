@@ -74,4 +74,5 @@ code institute for the deployment terminal
 Wikipedia for the details of battleships game
 codeacadmy for global variable examples 
 Stockoverflow for giving idea about single player coding.
-https://learn.adafruit.com/ for tutorial on girds.
+with many thanks for Pythondex for coding stucture.
+and learn.adafruit for tutorial on girds.
