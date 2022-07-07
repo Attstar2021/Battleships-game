@@ -5,13 +5,13 @@ import time
 # Declared global variable for battleships game.
 
 board = [[]]
-BOARD_SIZE = 5
-NUM_OF_SHIPS = 1
 ship_placement = [[]]
-FIRE_LEFT = 1
+BOARD_SIZE = 8
+NUM_OF_SHIPS = 2
+FIRE_LEFT = 10
 ship_sunk = 0
 game_over = False
-alphabet = "ABCDE"
+alphabet = "ABCDEFGH"
 
 
 def create_board():
@@ -19,8 +19,8 @@ def create_board():
     to create a board and to place ships of
     different sizes on gird.
     """
-   # global board
-   # global ship_placement
+    # global board
+    # global ship_placement
 
     random.seed(time.time())
     rows, cols = (BOARD_SIZE, BOARD_SIZE)
@@ -30,24 +30,22 @@ def create_board():
         row.append(".")
     for c in range(cols):
         board.append(row)
-    num_of_ships_placed = 0
+    total_ships = 0
     ship_placement = []
 
-    while num_of_ships_placed != NUM_OF_SHIPS:
+    while total_ships != NUM_OF_SHIPS:
         random_row = random.randint(0, rows - 1)
         random_col = random.randint(0, cols - 1)
         direction = random.choice(["left", "right", "up", "down"])
         ship_size = random.randint(1, 3)
-
         if place_ship(random_row, random_col, direction):
-            num_of_ships_placed += 1
+            total_ships += 1
 
 
 def validate_board(x1, x2, y1, y2):
     """
-    To place ship inside the grid.
+    To place ship inside the grids.
     """
-    global ship_placement
     all_valid = True
     for r in range(x1, x2):
         for c in range(y1, y2):
@@ -60,12 +58,33 @@ def validate_board(x1, x2, y1, y2):
             for c in range(y1, y2):
                 board[r][c] = "O"
     return all_valid
-
     return validate_board(x1, x2, y1, y2)
 
 
 def place_ship(row, col, direction, length):
-    return randint(0, row - 1)
+    """
+    Display and place ship in grid.
+    """
+
+    x1, x2, y1, y2 = row, row + 1, col, col + 1
+    if direction == "left":
+        if col - length < 0:
+            return False
+        y1 = col - length + 1
+    elif direction == "right":
+        if col + length >= BOARD_SIZE:
+            return False
+        y2 = col + length
+    elif direction == "up":
+        if row - length < 0:
+            return False
+        x1 = row - length +1
+    elif direction == "down":
+        if row + length >= BOARD_SIZE:
+            return False
+        x2 = col + length
+
+    return validate_board(x1, x2, y1, y2)
 
 
 def print_board():
