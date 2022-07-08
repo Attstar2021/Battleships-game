@@ -58,7 +58,6 @@ def validate_board(x1, x2, y1, y2):
             for c in range(y1, y2):
                 BOARD[r][c] = "O"
     return all_valid
-    return validate_board(x1, x2, y1, y2)
 
 
 def place_a_ship(row, col, direction, length):
@@ -167,7 +166,7 @@ def shoot_a_fire():
         print("BZ you hit a ship!", end=" ")
         BOARD[row][col] = "X"
         if ship_sunk(row, col):
-            print("Hurrah! A ship was completely sunk")
+            print("Hurrah! That ship completely sunk")
             SHIP_SUNK += 1
         else:
             print("A ship was shot")
@@ -216,7 +215,8 @@ def main():
 
     player_name = input("please enter your name:\n")
     print("*** Welcome to Battleships Game ***")
-    print(f"{player_name.capitalize()} you have 10 bullet to take down 2 ships, let's play!!")
+    print(f"{player_name.capitalize()} you have 10 bullet to take down 2 ships.")
+    print("Let's start our game!")
 
     create_board()
 
