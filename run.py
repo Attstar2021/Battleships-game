@@ -96,10 +96,13 @@ def fire_placement():
     row = -1
     col = -1
     while valid_placement is False:
-        placement = input("Enter row (A-H) and column (0-7) such as A1:")
+        placement = input("Enter row (A-H) and column (0-7) such as A1: ")
         placement = placement.upper()
         if len(placement) <= 0 or len(placement) > 2:
             print("Error: Please enter again.. for example B2.")
+            continue
+        if len(placement) <= 1 or len(placement) == ALPHABET:
+            print("Error: Enter row (A-H) and column (0-7) for example B2.")
             continue
         row = placement[0]
         col = placement[1]
