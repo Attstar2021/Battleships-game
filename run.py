@@ -25,10 +25,10 @@ def create_board():
     random.seed(time.time())
     rows, cols = (BOARD_SIZE, BOARD_SIZE)
     BOARD = []
-    row = []
     for r in range(rows):
-        row.append(".")
-    for c in range(cols):
+        row = []
+        for c in range(cols):
+            row.append(".")
         BOARD.append(row)
     total_ships = 0
     SHIP_PLACEMENT = []
