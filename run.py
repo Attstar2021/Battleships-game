@@ -1,8 +1,9 @@
 import time
 import random
-from random import randint
 
-# Declared global variable for battleships game.
+"""
+Declared global variable for battleships game.
+"""
 
 BOARD = [[]]
 SHIP_PLACEMENT = [[]]
@@ -42,20 +43,20 @@ def create_board():
             total_ships += 1
 
 
-def validate_board(x1, x2, y1, y2):
+def validate_board(x_1, x_2, y_1, y_2):
     """
     To place ship inside the grids.
     """
     all_valid = True
-    for r in range(x1, x2):
-        for c in range(y1, y2):
+    for r in range(x_1, x_2):
+        for c in range(y_1, y_2):
             if BOARD[r][c] != ".":
                 all_valid = False
                 break
     if all_valid:
-        SHIP_PLACEMENT.append([x1, x2, y1, y2])
-        for r in range(x1, x2):
-            for c in range(y1, y2):
+        SHIP_PLACEMENT.append([x_1, x_2, y_1, y_2])
+        for r in range(x_1, x_2):
+            for c in range(y_1, y_2):
                 BOARD[r][c] = "O"
     return all_valid
 
@@ -65,32 +66,31 @@ def place_a_ship(row, col, direction, length):
     Display and place ship in grid.
     """
 
-    x1, x2, y1, y2 = row, row + 1, col, col + 1
+    x_1, x_2, y_1, y_2 = row, row + 1, col, col + 1
     if direction == "left":
         if col - length < 0:
             return False
-        y1 = col - length + 1
+        y_1 = col - length + 1
     elif direction == "right":
         if col + length >= BOARD_SIZE:
             return False
-        y2 = col + length
+        y_2 = col + length
     elif direction == "up":
         if row - length < 0:
             return False
-        x1 = row - length + 1
+        x_1 = row - length + 1
     elif direction == "down":
         if row + length >= BOARD_SIZE:
             return False
-        x2 = col + length
+        x_2 = col + length
 
-    return validate_board(x1, x2, y1, y2)
+    return validate_board(x_1, x_2, y_1, y_2)
 
 
 def fire_placement():
     """
     To get valid row and column to place a shot.
     """
-    global ALPHABETa
 
     valid_placement = False
     row = -1
@@ -179,13 +179,13 @@ def ship_sunk(row, col):
     """
 
     for position in SHIP_PLACEMENT:
-        x1 = position[0]
-        x2 = position[1]
-        y1 = position[2]
-        y2 = position[3]
-        if x1 <= row <= x2 and y1 <= col <= y2:
-            for r in range(x1, x2):
-                for c in range(y1, y2):
+        x_1 = position[0]
+        x_2 = position[1]
+        y_1 = position[2]
+        y_2 = position[3]
+        if x_1 <= row <= x_2 and y_1 <= col <= y_2:
+            for r in range(x_1, x_2):
+                for c in range(y_1, y_2):
                     if BOARD[r][c] != "X":
                         return False
     return True
@@ -195,9 +195,7 @@ def game_over():
     """
     If all ships sunk or runs out of fire then game over.
     """
-    global FIRE_LEFT
     global GAME_OVER
-    global NUM_OF_SHIPS
 
     if NUM_OF_SHIPS == SHIP_SUNK:
         print("Congrats you win!")
@@ -211,11 +209,10 @@ def main():
     """
     Main function helps to runs the game loop.
     """
-    global GAME_OVER
 
     player_name = input("please enter your name:\n")
     print("*** Welcome to Battleships Game ***")
-    print(f"{player_name.capitalize()} you have 10 bullet to take down 2 ships.")
+    print(f"{player_name.capitalize()} you have 10 fire to take down 2 ships.")
     print("Let's start our game!")
 
     create_board()
